@@ -348,6 +348,93 @@ body {
     position: relative;
 }
 
+/* Victory Screen */
+.victory-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: victoryFadeIn 0.5s ease-out;
+}
+
+@keyframes victoryFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.victory-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(30px, 8vh, 60px);
+    animation: victorySlideUp 0.6s ease-out 0.2s both;
+}
+
+@keyframes victorySlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.victory-title {
+    font-family: 'Geist', sans-serif;
+    font-weight: 600;
+    font-size: clamp(32px, 8vw, 80px);
+    line-height: 1.1;
+    color: #fafafa;
+    text-align: center;
+    letter-spacing: -0.5px;
+    margin: 0;
+    text-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+    position: relative;
+}
+
+.play-again-btn {
+    background: linear-gradient(135deg, #4ECDC4 0%, #45B7D1 100%);
+    border: none;
+    border-radius: clamp(12px, 3vw, 20px);
+    padding: clamp(12px, 3vw, 20px) clamp(24px, 6vw, 40px);
+    font-family: 'Geist', sans-serif;
+    font-weight: 600;
+    font-size: clamp(16px, 4vw, 24px);
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(78, 205, 196, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.play-again-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(78, 205, 196, 0.4);
+    background: linear-gradient(135deg, #5ed3ca 0%, #4fc3e0 100%);
+}
+
+.play-again-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.3);
+}
+
 /* X and O Icons */
 .cell .x-icon,
 .cell .o-icon {
@@ -532,6 +619,21 @@ body {
         width: clamp(2rem, 5vw, 3rem);
         height: clamp(2rem, 5vw, 3rem);
         border-width: clamp(0.12rem, 0.25vw, 0.2rem);
+    }
+    
+    /* Victory screen responsive adjustments */
+    .victory-content {
+        gap: clamp(20px, 6vh, 40px);
+        padding: clamp(20px, 4vw, 40px);
+    }
+    
+    .victory-title {
+        font-size: clamp(24px, 6vw, 60px);
+    }
+    
+    .play-again-btn {
+        padding: clamp(10px, 2.5vw, 16px) clamp(20px, 5vw, 32px);
+        font-size: clamp(14px, 3.5vw, 20px);
     }
 }
 

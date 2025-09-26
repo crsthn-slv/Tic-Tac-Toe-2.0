@@ -190,8 +190,11 @@ class ConfettiAnimation {
         this.stop(); // Stop any existing animation
         this.createContainer();
         
-        // Get the position of the result text
-        const resultTextElement = document.getElementById('result-text');
+        // Get the position of the victory title (or fallback to result text)
+        let resultTextElement = document.getElementById('victory-title');
+        if (!resultTextElement) {
+            resultTextElement = document.getElementById('result-text');
+        }
         let sourceX = window.innerWidth / 2;
         let sourceY = window.innerHeight / 2;
         

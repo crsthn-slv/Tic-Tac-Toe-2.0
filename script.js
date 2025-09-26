@@ -137,15 +137,10 @@ class UltimateTicTacToe {
             if (gameWinner) {
                 this.gameWinner = gameWinner;
                 this.gameActive = false;
-                this.updateGameStatus();
                 this.closeModal();
                 
-                // Launch confetti animation for the winner
-                setTimeout(() => {
-                    if (window.launchConfetti) {
-                        window.launchConfetti(gameWinner);
-                    }
-                }, 300); // Small delay to ensure DOM is updated
+                // Show victory screen instead of simple result
+                this.showVictoryScreen(gameWinner);
                 
                 return;
             }
@@ -328,39 +323,37 @@ class UltimateTicTacToe {
     }
 
     updateGameStatus() {
-        const gameResult = document.getElementById('game-result');
-        const resultText = document.getElementById('result-text');
-
-        if (this.gameWinner) {
-            if (gameResult) {
-                gameResult.style.display = 'block';
-                if (resultText) {
-                    if (this.gameWinner === 'X') {
-                        resultText.textContent = 'Xiszinho ganhou';
-                    } else {
-                        resultText.textContent = 'Bolinha ganhou';
-                    }
-                }
-            }
-        } else if (this.isGameDraw()) {
-            if (gameResult) {
-                gameResult.style.display = 'block';
-                if (resultText) {
-                    resultText.textContent = 'Jogo empatado!';
-                }
-                
-                // Launch confetti for draw (can use either X or O style)
-                setTimeout(() => {
-                    if (window.launchConfetti) {
-                        window.launchConfetti('O'); // Use O style for draws
-                    }
-                }, 300);
-            }
-        } else {
-            if (gameResult) {
-                gameResult.style.display = 'none';
-            }
+        // Victory screen now handles win/draw display
+        // This method is kept for compatibility but main logic moved to showVictoryScreen
+        if (this.isGameDraw() && !this.gameWinner) {
+            this.showVictoryScreen('DRAW');
         }
+    }
+
+    showVictoryScreen(winner) {
+        const victoryScreen = document.getElementById('victory-screen');
+        const victoryTitle = document.getElementById('victory-title');
+        
+        if (!victoryScreen || !victoryTitle) return;
+        
+        // Set the victory message
+        if (winner === 'X') {
+            victoryTitle.textContent = 'Xiszinho ganhou!';
+        } else if (winner === 'O') {
+            victoryTitle.textContent = 'Bolinha ganhou!';
+        } else if (winner === 'DRAW') {
+            victoryTitle.textContent = 'Jogo empatado!';
+        }
+        
+        // Show victory screen
+        victoryScreen.style.display = 'flex';
+        
+        // Launch confetti from the title after a short delay
+        setTimeout(() => {
+            if (window.launchConfetti) {
+                window.launchConfetti(winner === 'DRAW' ? 'O' : winner);
+            }
+        }, 600); // Delay to allow screen animation to complete
     }
 
     updateNextBoardInfo() {
@@ -384,6 +377,17 @@ class UltimateTicTacToe {
         this.gameWinner = '';
         this.gameActive = true;
         
+        // Hide victory screen
+        const victoryScreen = document.getElementById('victory-screen');
+        if (victoryScreen) {
+            victoryScreen.style.display = 'none';
+        }
+        
+        // Stop any ongoing confetti
+        if (window.confettiAnimation) {
+            window.confettiAnimation.stop();
+        }
+        
         this.createMainBoard();
         this.updateGameStatus();
         this.updateNextBoardInfo();
@@ -395,6 +399,14 @@ class UltimateTicTacToe {
         const resetButton = document.getElementById('reset-game');
         if (resetButton) {
             resetButton.addEventListener('click', () => {
+                this.resetGame();
+            });
+        }
+
+        // Play Again button
+        const playAgainButton = document.getElementById('play-again-btn');
+        if (playAgainButton) {
+            playAgainButton.addEventListener('click', () => {
                 this.resetGame();
             });
         }
