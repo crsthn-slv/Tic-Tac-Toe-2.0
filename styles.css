@@ -26,7 +26,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: clamp(10px, 2vh, 20px);
+    padding: clamp(5px, 1vh, 15px);
     box-sizing: border-box;
     overflow: hidden;
 }
@@ -34,24 +34,24 @@ body {
 /* Header */
 .header {
     text-align: center;
-    margin-bottom: clamp(15px, 3vh, 50px);
+    margin-bottom: clamp(8px, 1.5vh, 25px);
     flex-shrink: 0;
 }
 
 .title {
     font-family: 'Geist', sans-serif;
     font-weight: 600;
-    font-size: clamp(20px, 4vw, 30px);
+    font-size: clamp(18px, 3.5vw, 28px);
     line-height: 1;
     color: #fafafa;
-    margin-bottom: clamp(4px, 1vh, 8px);
+    margin-bottom: clamp(3px, 0.8vh, 6px);
     letter-spacing: -0.3px;
 }
 
 .subtitle {
     font-family: 'Geist', sans-serif;
     font-weight: 400;
-    font-size: clamp(12px, 2.5vw, 16px);
+    font-size: clamp(11px, 2.2vw, 14px);
     line-height: 1.5;
     color: #737373;
 }
@@ -61,24 +61,23 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 2vw;
-    width: 90vw;
-    height: 90vw;
-    max-width: 80vh;
-    max-height: 80vh;
+    gap: clamp(4px, 1.5vw, 12px);
+    width: min(85vw, 75vh);
+    height: min(85vw, 75vh);
     flex-grow: 1;
     flex-shrink: 1;
+    margin: auto;
 }
 
 .mini-board {
     background: #262626;
     border: 1px solid #171717;
-    border-radius: 1vw;
-    padding: 1vw;
+    border-radius: clamp(3px, 1vw, 8px);
+    padding: clamp(2px, 0.8vw, 6px);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 0.5vw;
+    gap: clamp(1px, 0.4vw, 3px);
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.1), 0px 1px 2px -1px rgba(0,0,0,0.1);
@@ -135,11 +134,11 @@ body {
 .cell {
     background: #171717;
     border: 0.316px solid #171717;
-    border-radius: 0.3vw;
+    border-radius: clamp(1px, 0.3vw, 3px);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5vw;
+    font-size: clamp(8px, 1.2vw, 16px);
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -171,12 +170,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 4rem;
+    font-size: clamp(2rem, 6vw, 4rem);
     font-weight: bold;
     pointer-events: none;
     z-index: 10;
-    width: 4rem;
-    height: 4rem;
+    width: clamp(2rem, 6vw, 4rem);
+    height: clamp(2rem, 6vw, 4rem);
 }
 
 .winner-overlay.x {
@@ -190,14 +189,14 @@ body {
 /* Game Result */
 .game-result {
     text-align: center;
-    margin-top: clamp(10px, 2vh, 30px);
+    margin-top: clamp(5px, 1vh, 15px);
     flex-shrink: 0;
 }
 
 .result-text {
     font-family: 'Geist', sans-serif;
     font-weight: 600;
-    font-size: clamp(18px, 4vw, 30px);
+    font-size: clamp(16px, 3.5vw, 26px);
     line-height: 1;
     color: #fafafa;
     letter-spacing: -0.3px;
@@ -282,9 +281,9 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 1.5vw;
-    width: 60vw;
-    height: 60vw;
+    gap: clamp(4px, 1.2vw, 12px);
+    width: min(70vw, 60vh);
+    height: min(70vw, 60vh);
     max-width: 400px;
     max-height: 400px;
 }
@@ -292,11 +291,11 @@ body {
 .modal-board .cell {
     background: #171717;
     border: 0.5px solid #171717;
-    border-radius: 1vw;
+    border-radius: clamp(3px, 1vw, 8px);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3vw;
+    font-size: clamp(12px, 2.5vw, 24px);
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -304,7 +303,7 @@ body {
     aspect-ratio: 1;
     width: 100%;
     height: 100%;
-    padding: 1vw;
+    padding: clamp(2px, 0.8vw, 6px);
 }
 
 .modal-board .cell:hover {
@@ -322,8 +321,8 @@ body {
 /* X and O Icons */
 .cell .x-icon,
 .cell .o-icon {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: clamp(0.8rem, 1.8vw, 1.5rem);
+    height: clamp(0.8rem, 1.8vw, 1.5rem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -332,8 +331,8 @@ body {
 
 .modal-board .cell .x-icon,
 .modal-board .cell .o-icon {
-    width: 2rem;
-    height: 2rem;
+    width: clamp(1.2rem, 3vw, 2.5rem);
+    height: clamp(1.2rem, 3vw, 2.5rem);
     position: relative;
 }
 
@@ -342,8 +341,8 @@ body {
 .x-icon::after {
     content: '';
     position: absolute;
-    width: 1rem;
-    height: 0.15rem;
+    width: clamp(0.6rem, 1.2vw, 1rem);
+    height: clamp(0.08rem, 0.15vw, 0.15rem);
     background: currentColor;
 }
 
@@ -357,17 +356,17 @@ body {
 
 /* O Icon */
 .o-icon {
-    border: 0.15rem solid currentColor;
+    border: clamp(0.08rem, 0.15vw, 0.15rem) solid currentColor;
     border-radius: 50%;
-    width: 1rem;
-    height: 1rem;
+    width: clamp(0.6rem, 1.2vw, 1rem);
+    height: clamp(0.6rem, 1.2vw, 1rem);
 }
 
 /* Large overlay icons for won boards */
 .winner-overlay .x-icon {
     position: relative;
-    width: 4rem;
-    height: 4rem;
+    width: clamp(2.5rem, 6vw, 4rem);
+    height: clamp(2.5rem, 6vw, 4rem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -375,100 +374,165 @@ body {
 
 .winner-overlay .x-icon::before,
 .winner-overlay .x-icon::after {
-    width: 2.5rem;
-    height: 0.25rem;
+    width: clamp(1.5rem, 4vw, 2.5rem);
+    height: clamp(0.15rem, 0.3vw, 0.25rem);
     background: #8ec5ff;
 }
 
 .winner-overlay .o-icon {
-    width: 4rem;
-    height: 4rem;
-    border: 0.25rem solid #ff4670;
+    width: clamp(2.5rem, 6vw, 4rem);
+    height: clamp(2.5rem, 6vw, 4rem);
+    border: clamp(0.15rem, 0.3vw, 0.25rem) solid #ff4670;
     border-radius: 50%;
     background: transparent;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .container {
+        padding: clamp(3px, 0.8vh, 10px);
+    }
+    
     .main-board {
-        width: 95vw;
-        height: 95vw;
-        gap: 1.5vw;
-        max-width: 85vh;
-        max-height: 85vh;
+        width: min(90vw, 70vh);
+        height: min(90vw, 70vh);
+        gap: clamp(3px, 1.2vw, 10px);
     }
     
     .modal-board {
-        width: 70vw;
-        height: 70vw;
-        gap: 1vw;
-        max-width: 60vh;
-        max-height: 60vh;
+        width: min(75vw, 55vh);
+        height: min(75vw, 55vh);
+        gap: clamp(3px, 1vw, 8px);
+    }
+    
+    .header {
+        margin-bottom: clamp(5px, 1vh, 15px);
+    }
+    
+    .title {
+        font-size: clamp(16px, 3.2vw, 24px);
+    }
+    
+    .subtitle {
+        font-size: clamp(10px, 2vw, 12px);
     }
 }
 
 @media (max-width: 480px) {
+    .container {
+        padding: clamp(2px, 0.5vh, 8px);
+    }
+    
     .main-board {
-        width: 98vw;
-        height: 98vw;
-        gap: 1vw;
-        max-width: 90vh;
-        max-height: 90vh;
+        width: min(95vw, 65vh);
+        height: min(95vw, 65vh);
+        gap: clamp(2px, 1vw, 8px);
     }
     
     .modal-board {
-        width: 80vw;
-        height: 80vw;
-        gap: 0.8vw;
-        max-width: 70vh;
-        max-height: 70vh;
+        width: min(80vw, 50vh);
+        height: min(80vw, 50vh);
+        gap: clamp(2px, 0.8vw, 6px);
     }
     
-    /* Slightly smaller icons for very small screens */
+    .header {
+        margin-bottom: clamp(3px, 0.8vh, 12px);
+    }
+    
+    .title {
+        font-size: clamp(14px, 3vw, 20px);
+        margin-bottom: clamp(2px, 0.5vh, 4px);
+    }
+    
+    .subtitle {
+        font-size: clamp(9px, 1.8vw, 11px);
+    }
+    
+    .result-text {
+        font-size: clamp(14px, 3.2vw, 22px);
+    }
+    
+    .game-result {
+        margin-top: clamp(3px, 0.8vh, 10px);
+    }
+    
+    /* Smaller icons for very small screens */
     .cell .x-icon,
     .cell .o-icon {
-        width: 1.2rem;
-        height: 1.2rem;
+        width: clamp(0.6rem, 1.5vw, 1.2rem);
+        height: clamp(0.6rem, 1.5vw, 1.2rem);
     }
     
     .modal-board .cell .x-icon,
     .modal-board .cell .o-icon {
-        width: 1.6rem;
-        height: 1.6rem;
+        width: clamp(1rem, 2.5vw, 2rem);
+        height: clamp(1rem, 2.5vw, 2rem);
     }
     
     .x-icon::before,
     .x-icon::after {
-        width: 0.8rem;
-        height: 0.12rem;
+        width: clamp(0.5rem, 1vw, 0.8rem);
+        height: clamp(0.06rem, 0.12vw, 0.12rem);
     }
     
     .o-icon {
-        width: 0.8rem;
-        height: 0.8rem;
-        border-width: 0.12rem;
+        width: clamp(0.5rem, 1vw, 0.8rem);
+        height: clamp(0.5rem, 1vw, 0.8rem);
+        border-width: clamp(0.06rem, 0.12vw, 0.12rem);
     }
     
     .winner-overlay {
-        width: 3rem;
-        height: 3rem;
-        font-size: 3rem;
+        width: clamp(2rem, 5vw, 3rem);
+        height: clamp(2rem, 5vw, 3rem);
+        font-size: clamp(2rem, 5vw, 3rem);
     }
     
     .winner-overlay .x-icon {
-        width: 3rem;
-        height: 3rem;
+        width: clamp(2rem, 5vw, 3rem);
+        height: clamp(2rem, 5vw, 3rem);
     }
     
     .winner-overlay .x-icon::before,
     .winner-overlay .x-icon::after {
-        width: 2rem;
-        height: 0.2rem;
+        width: clamp(1.2rem, 3.5vw, 2rem);
+        height: clamp(0.12rem, 0.25vw, 0.2rem);
     }
     
     .winner-overlay .o-icon {
-        width: 3rem;
-        height: 3rem;
-        border-width: 0.2rem;
+        width: clamp(2rem, 5vw, 3rem);
+        height: clamp(2rem, 5vw, 3rem);
+        border-width: clamp(0.12rem, 0.25vw, 0.2rem);
+    }
+}
+
+@media (max-height: 600px) {
+    .container {
+        padding: clamp(2px, 0.5vh, 5px);
+    }
+    
+    .header {
+        margin-bottom: clamp(2px, 0.5vh, 8px);
+    }
+    
+    .title {
+        font-size: clamp(12px, 2.5vw, 18px);
+        margin-bottom: clamp(1px, 0.3vh, 3px);
+    }
+    
+    .subtitle {
+        font-size: clamp(8px, 1.5vw, 10px);
+    }
+    
+    .main-board {
+        width: min(80vw, 60vh);
+        height: min(80vw, 60vh);
+    }
+    
+    .game-result {
+        margin-top: clamp(2px, 0.5vh, 8px);
+    }
+    
+    .result-text {
+        font-size: clamp(12px, 2.8vw, 20px);
     }
 }
