@@ -8,33 +8,26 @@ body {
     font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: #000000;
     color: #fafafa;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .container {
-    width: 100%;
-    max-width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 1rem;
     box-sizing: border-box;
-    overflow: hidden;
+    gap: 1rem;
 }
 
 /* Header */
 .header {
     text-align: center;
-    margin-bottom: 1.5rem;
     flex-shrink: 0;
 }
 
@@ -61,19 +54,19 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 0.75rem;
-    width: 24rem;
-    height: 24rem;
-    flex-grow: 1;
-    flex-shrink: 1;
-    margin: auto;
+    gap: 1rem;
+    width: min(90vw, 90vh, 40rem);
+    height: min(90vw, 90vh, 40rem);
+    max-width: 40rem;
+    max-height: 40rem;
+    flex-shrink: 0;
 }
 
 .mini-board {
     background: #262626;
     border: 1px solid #171717;
     border-radius: 0.5rem;
-    padding: 0.5rem;
+    padding: 0.375rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -189,7 +182,6 @@ body {
 /* Game Result */
 .game-result {
     text-align: center;
-    margin-top: 1rem;
     flex-shrink: 0;
 }
 
@@ -361,17 +353,15 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: victoryFadeIn 0.5s ease-out;
+    animation: victoryFadeIn 0.8s ease;
 }
 
 @keyframes victoryFadeIn {
     from {
         opacity: 0;
-        transform: scale(0.9);
     }
     to {
         opacity: 1;
-        transform: scale(1);
     }
 }
 
@@ -381,18 +371,6 @@ body {
     flex-direction: column;
     align-items: center;
     gap: clamp(30px, 8vh, 60px);
-    animation: victorySlideUp 0.6s ease-out 0.2s both;
-}
-
-@keyframes victorySlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .victory-title {
@@ -458,7 +436,7 @@ body {
 .x-icon::after {
     content: '';
     position: absolute;
-    width: 0.75rem;
+    width: 1rem;
     height: 0.125rem;
     background: currentColor;
 }
@@ -475,8 +453,8 @@ body {
 .o-icon {
     border: 0.125rem solid currentColor;
     border-radius: 50%;
-    width: 0.75rem;
-    height: 0.75rem;
+    width: 1rem;
+    height: 1rem;
 }
 
 /* Large overlay icons for won boards */
@@ -504,56 +482,90 @@ body {
     background: transparent;
 }
 
-/* 4 Simple Responsive Breakpoints */
+/* Responsive Design - 4 Simple Breakpoints */
 
-/* Large Desktop: > 1200px */
-@media (min-width: 1201px) {
-    .main-board {
-        width: 28rem;
-        height: 28rem;
-        gap: 1rem;
-    }
-    
-    .mini-board {
-        padding: 0.75rem;
-        gap: 0.375rem;
+/* Mobile: ≤ 480px */
+@media (max-width: 480px) {
+    .container {
+        padding: 0.5rem;
+        gap: 0.5rem;
     }
     
     .title {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
     }
     
     .subtitle {
+        font-size: 0.75rem;
+    }
+    
+    .main-board {
+        width: min(95vw, 95vh, 22rem);
+        height: min(95vw, 95vh, 22rem);
+        gap: 0.5rem;
+    }
+    
+    .mini-board {
+        padding: 0.375rem;
+        gap: 0.1875rem;
+        border-radius: 0.5rem;
+    }
+    
+    .cell {
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
+        min-width: 18px;
+        min-height: 18px;
+    }
+    
+    .cell .x-icon,
+    .cell .o-icon {
+        width: 1rem;
+        height: 1rem;
+    }
+    
+    .x-icon::before,
+    .x-icon::after {
+        width: 0.75rem;
+        height: 0.125rem;
+    }
+    
+    .o-icon {
+        width: 0.75rem;
+        height: 0.75rem;
+        border-width: 0.125rem;
+    }
+    
+    .modal-board {
+        width: min(85vw, 85vh, 18rem);
+        height: min(85vw, 85vh, 18rem);
+        gap: 0.5rem;
+    }
+    
+    .modal-content {
+        padding: 1rem 0.75rem;
+        gap: 1rem;
+        border-radius: 1rem;
+        max-width: 95vw;
+        max-height: 95vh;
+    }
+    
+    .modal-title {
         font-size: 1.25rem;
     }
     
-    .modal-board {
-        width: 22rem;
-        height: 22rem;
-        gap: 1rem;
+    .modal-player {
+        font-size: 0.875rem;
     }
     
     .victory-title {
-        font-size: 5rem;
+        font-size: 2.5rem;
     }
     
     .play-again-btn {
-        font-size: 1.5rem;
-        padding: 1.25rem 2.5rem;
-    }
-}
-
-/* Desktop: 769px - 1200px */
-@media (min-width: 769px) and (max-width: 1200px) {
-    .main-board {
-        width: 24rem;
-        height: 24rem;
-        gap: 0.75rem;
-    }
-    
-    .modal-board {
-        width: 18rem;
-        height: 18rem;
+        font-size: 1rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
     }
 }
 
@@ -561,10 +573,7 @@ body {
 @media (min-width: 481px) and (max-width: 768px) {
     .container {
         padding: 0.75rem;
-    }
-    
-    .header {
-        margin-bottom: 1rem;
+        gap: 0.75rem;
     }
     
     .title {
@@ -576,29 +585,36 @@ body {
     }
     
     .main-board {
-        width: 20rem;
-        height: 20rem;
-        gap: 0.5rem;
+        width: min(85vw, 85vh, 26rem);
+        height: min(85vw, 85vh, 26rem);
+        gap: 0.75rem;
     }
     
     .mini-board {
-        padding: 0.375rem;
-        gap: 0.1875rem;
+        padding: 0.5rem;
+        gap: 0.25rem;
+    }
+    
+    .cell {
+        min-width: 20px;
+        min-height: 20px;
     }
     
     .modal-board {
-        width: 15rem;
-        height: 15rem;
-        gap: 0.5rem;
+        width: min(75vw, 75vh, 20rem);
+        height: min(75vw, 75vh, 20rem);
+        gap: 0.75rem;
     }
     
     .modal-content {
-        padding: 1.5rem 1rem 1rem 1rem;
+        padding: 1.5rem 1rem;
         gap: 1.5rem;
+        max-width: 90vw;
+        max-height: 90vh;
     }
     
     .victory-title {
-        font-size: 3rem;
+        font-size: 3.25rem;
     }
     
     .play-again-btn {
@@ -607,127 +623,59 @@ body {
     }
 }
 
-/* Mobile: ≤ 480px */
-@media (max-width: 480px) {
-    .container {
-        padding: 0.5rem;
-    }
-    
-    .header {
-        margin-bottom: 0.75rem;
-    }
-    
-    .title {
-        font-size: 1.5rem;
-        margin-bottom: 0.25rem;
-    }
-    
-    .subtitle {
-        font-size: 0.75rem;
-    }
-    
+/* Desktop: 769px - 1200px */
+@media (min-width: 769px) and (max-width: 1200px) {
     .main-board {
-        width: 16rem;
-        height: 16rem;
-        gap: 0.375rem;
+        width: min(80vw, 80vh, 38rem);
+        height: min(80vw, 80vh, 38rem);
+        gap: 1.25rem;
     }
     
     .mini-board {
         padding: 0.25rem;
-        gap: 0.125rem;
-        border-radius: 0.375rem;
-    }
-    
-    .cell {
-        border-radius: 0.1875rem;
-        font-size: 0.75rem;
-    }
-    
-    .cell .x-icon,
-    .cell .o-icon {
-        width: 0.75rem;
-        height: 0.75rem;
-    }
-    
-    .x-icon::before,
-    .x-icon::after {
-        width: 0.5rem;
-        height: 0.1rem;
-    }
-    
-    .o-icon {
-        width: 0.5rem;
-        height: 0.5rem;
-        border-width: 0.1rem;
+        gap: 0.1875rem;
     }
     
     .modal-board {
-        width: 12rem;
-        height: 12rem;
-        gap: 0.375rem;
-    }
-    
-    .modal-board .cell {
-        padding: 0.25rem;
-    }
-    
-    .modal-board .cell .x-icon,
-    .modal-board .cell .o-icon {
-        width: 1rem;
-        height: 1rem;
-    }
-    
-    .modal-content {
-        padding: 1rem 0.75rem 0.75rem 0.75rem;
+        width: min(65vw, 65vh, 28rem);
+        height: min(65vw, 65vh, 28rem);
         gap: 1rem;
-        border-radius: 1rem;
+    }
+}
+
+/* Large Desktop: > 1200px */
+@media (min-width: 1201px) {
+    .main-board {
+        width: min(75vw, 75vh, 48rem);
+        height: min(75vw, 75vh, 48rem);
+        gap: 1.5rem;
     }
     
-    .modal-title {
-        font-size: 1.25rem;
+    .mini-board {
+        padding: 0.25rem;
+        gap: 0.1875rem;
     }
     
-    .modal-player {
-        font-size: 0.875rem;
-        margin: -0.5rem 0;
+    .title {
+        font-size: 2.75rem;
     }
     
-    .winner-overlay {
-        width: 2rem;
-        height: 2rem;
-        font-size: 2rem;
+    .subtitle {
+        font-size: 1.375rem;
     }
     
-    .winner-overlay .x-icon {
-        width: 2rem;
-        height: 2rem;
-    }
-    
-    .winner-overlay .x-icon::before,
-    .winner-overlay .x-icon::after {
-        width: 1.25rem;
-        height: 0.15rem;
-    }
-    
-    .winner-overlay .o-icon {
-        width: 2rem;
-        height: 2rem;
-        border-width: 0.15rem;
+    .modal-board {
+        width: min(60vw, 60vh, 32rem);
+        height: min(60vw, 60vh, 32rem);
+        gap: 1.25rem;
     }
     
     .victory-title {
-        font-size: 2.25rem;
+        font-size: 5.5rem;
     }
     
     .play-again-btn {
-        font-size: 1rem;
-        padding: 0.75rem 1.5rem;
-        border-radius: 0.75rem;
-    }
-    
-    .hover-preview .x-icon,
-    .hover-preview .o-icon {
-        width: 1rem;
-        height: 1rem;
+        font-size: 1.5rem;
+        padding: 1.25rem 2.5rem;
     }
 }

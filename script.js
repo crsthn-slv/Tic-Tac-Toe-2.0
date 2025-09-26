@@ -348,12 +348,10 @@ class UltimateTicTacToe {
         // Show victory screen
         victoryScreen.style.display = 'flex';
         
-        // Launch confetti from the title after a short delay
+        // Launch confetti after screen appears
         setTimeout(() => {
-            if (window.launchConfetti) {
-                window.launchConfetti(winner === 'DRAW' ? 'O' : winner);
-            }
-        }, 600); // Delay to allow screen animation to complete
+            this.launchConfetti();
+        }, 500);
     }
 
     updateNextBoardInfo() {
@@ -381,11 +379,6 @@ class UltimateTicTacToe {
         const victoryScreen = document.getElementById('victory-screen');
         if (victoryScreen) {
             victoryScreen.style.display = 'none';
-        }
-        
-        // Stop any ongoing confetti
-        if (window.confettiAnimation) {
-            window.confettiAnimation.stop();
         }
         
         this.createMainBoard();
@@ -480,6 +473,54 @@ class UltimateTicTacToe {
                 newCell.addEventListener('mouseleave', () => this.clearHoverPreview(newCell));
             }
         }
+    }
+
+    launchConfetti() {
+        if (typeof confetti === 'undefined') {
+            console.error('Confetti library not loaded');
+            return;
+        }
+
+        const count = 200;
+        const defaults = {
+            origin: { y: 0.7 },
+            zIndex: 20000, // Higher than victory screen z-index (10000)
+        };
+
+        function fire(particleRatio, opts) {
+            confetti(
+                Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio),
+                })
+            );
+        }
+
+        fire(0.25, {
+            spread: 26,
+            startVelocity: 55,
+        });
+
+        fire(0.2, {
+            spread: 60,
+        });
+
+        fire(0.35, {
+            spread: 100,
+            decay: 0.91,
+            scalar: 0.8,
+        });
+
+        fire(0.1, {
+            spread: 120,
+            startVelocity: 25,
+            decay: 0.92,
+            scalar: 1.2,
+        });
+
+        fire(0.1, {
+            spread: 120,
+            startVelocity: 45,
+        });
     }
 }
 
