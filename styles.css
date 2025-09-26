@@ -304,6 +304,7 @@ body {
     width: 100%;
     height: 100%;
     padding: clamp(2px, 0.8vw, 6px);
+    position: relative;
 }
 
 .modal-board .cell:hover {
@@ -316,6 +317,35 @@ body {
 
 .modal-board .cell.o {
     color: #ff4670;
+}
+
+/* Hover Preview Styles */
+.hover-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.hover-preview.x {
+    color: #8ec5ff;
+}
+
+.hover-preview.o {
+    color: #ff4670;
+}
+
+.hover-preview .x-icon,
+.hover-preview .o-icon {
+    width: clamp(1.2rem, 3vw, 2.5rem);
+    height: clamp(1.2rem, 3vw, 2.5rem);
+    position: relative;
 }
 
 /* X and O Icons */

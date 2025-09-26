@@ -59,6 +59,9 @@ class UltimateTicTacToe {
         const modalBoard = document.getElementById('modal-board');
         const modalCurrentPlayer = document.getElementById('modal-current-player');
 
+        // Randomly change the current player when opening modal
+        this.currentPlayer = Math.random() < 0.5 ? 'X' : 'O';
+
         if (modalBoardNumber) {
             modalBoardNumber.textContent = boardIndex + 1;
         }
@@ -89,6 +92,12 @@ class UltimateTicTacToe {
             
             // Add click event
             cell.addEventListener('click', () => this.handleCellClick(boardIndex, cellIndex));
+            
+            // Add hover effects for empty cells
+            if (!cellValue) {
+                cell.addEventListener('mouseenter', () => this.showHoverPreview(cell, this.currentPlayer));
+                cell.addEventListener('mouseleave', () => this.clearHoverPreview(cell));
+            }
             
             modalBoard.appendChild(cell);
         }
@@ -170,6 +179,9 @@ class UltimateTicTacToe {
         if (modalCurrentPlayer) {
             modalCurrentPlayer.textContent = this.currentPlayer;
         }
+        
+        // Update hover effects for remaining empty cells
+        this.updateModalHoverEffects(boardIndex);
         
         // Update displays
         this.updateMainBoardDisplay();
@@ -409,6 +421,53 @@ class UltimateTicTacToe {
                 this.closeModal();
             }
         });
+    }
+
+    showHoverPreview(cell, player) {
+        if (cell.innerHTML !== '') return; // Don't show preview on occupied cells
+        
+        const preview = document.createElement('div');
+        preview.className = 'hover-preview';
+        preview.style.opacity = '0.3';
+        
+        if (player === 'X') {
+            preview.innerHTML = '<div class="x-icon"></div>';
+            preview.classList.add('x');
+        } else {
+            preview.innerHTML = '<div class="o-icon"></div>';
+            preview.classList.add('o');
+        }
+        
+        cell.appendChild(preview);
+    }
+
+    clearHoverPreview(cell) {
+        const preview = cell.querySelector('.hover-preview');
+        if (preview) {
+            cell.removeChild(preview);
+        }
+    }
+
+    updateModalHoverEffects(boardIndex) {
+        const modalBoard = document.getElementById('modal-board');
+        if (!modalBoard) return;
+        
+        // Remove old event listeners and add new ones with current player
+        for (let cellIndex = 0; cellIndex < 9; cellIndex++) {
+            const cell = modalBoard.children[cellIndex];
+            if (cell && this.boards[boardIndex][cellIndex] === '') {
+                // Clone node to remove all event listeners
+                const newCell = cell.cloneNode(true);
+                cell.parentNode.replaceChild(newCell, cell);
+                
+                // Add back the click event
+                newCell.addEventListener('click', () => this.handleCellClick(boardIndex, cellIndex));
+                
+                // Add hover effects with current player
+                newCell.addEventListener('mouseenter', () => this.showHoverPreview(newCell, this.currentPlayer));
+                newCell.addEventListener('mouseleave', () => this.clearHoverPreview(newCell));
+            }
+        }
     }
 }
 
