@@ -23,7 +23,7 @@ A modern, interactive Ultimate Tic-Tac-Toe game with beautiful animations and co
 - **HTML5**: Structure and layout
 - **CSS3**: Styling, animations, and responsive design
 - **Vanilla JavaScript**: Game logic and interactivity
-- **Custom JavaScript**: Hand-crafted confetti animations
+- **Custom JavaScript**: Hand-crafted DOM-based confetti animations
 
 ## 📁 Project Structure
 
@@ -37,12 +37,12 @@ A modern, interactive Ultimate Tic-Tac-Toe game with beautiful animations and co
 
 ## 🎨 Features
 
-### Hand-crafted Confetti Animation System
+### Hand-crafted DOM Confetti Animation System
 - **Dynamic Shapes**: Different confetti shapes based on the winner
 - **Realistic Physics**: Air resistance, gravity, and wobble effects
 - **Multi-directional Launch**: Confetti bursts from multiple angles
 - **Progressive Bursts**: Multiple waves of confetti over 6 seconds
-- **Pure JavaScript**: No external libraries or Canvas API dependencies
+- **Pure DOM**: No external libraries or Canvas API - uses styled DOM elements
 
 ### Game Mechanics
 - **Board Selection**: Click any available mini-board to play

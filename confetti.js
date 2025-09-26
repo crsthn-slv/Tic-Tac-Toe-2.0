@@ -1,7 +1,6 @@
 class ConfettiAnimation {
     constructor() {
-        this.canvas = null;
-        this.ctx = null;
+        this.confettiContainer = null;
         this.confettiPieces = [];
         this.animationId = null;
         this.colors = [
@@ -11,28 +10,24 @@ class ConfettiAnimation {
         ];
     }
 
-    createCanvas() {
-        this.canvas = document.createElement('canvas');
-        this.canvas.style.position = 'fixed';
-        this.canvas.style.top = '0';
-        this.canvas.style.left = '0';
-        this.canvas.style.width = '100%';
-        this.canvas.style.height = '100%';
-        this.canvas.style.pointerEvents = 'none';
-        this.canvas.style.zIndex = '9999';
+    createContainer() {
+        this.confettiContainer = document.createElement('div');
+        this.confettiContainer.style.position = 'fixed';
+        this.confettiContainer.style.top = '0';
+        this.confettiContainer.style.left = '0';
+        this.confettiContainer.style.width = '100%';
+        this.confettiContainer.style.height = '100%';
+        this.confettiContainer.style.pointerEvents = 'none';
+        this.confettiContainer.style.zIndex = '9999';
+        this.confettiContainer.style.overflow = 'hidden';
         
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-        
-        this.ctx = this.canvas.getContext('2d');
-        document.body.appendChild(this.canvas);
+        document.body.appendChild(this.confettiContainer);
     }
 
-    removeCanvas() {
-        if (this.canvas) {
-            document.body.removeChild(this.canvas);
-            this.canvas = null;
-            this.ctx = null;
+    removeContainer() {
+        if (this.confettiContainer) {
+            document.body.removeChild(this.confettiContainer);
+            this.confettiContainer = null;
         }
     }
 
@@ -41,7 +36,12 @@ class ConfettiAnimation {
     }
 
     createOConfetti(x, y) {
-        return {
+        const element = document.createElement('div');
+        element.style.position = 'absolute';
+        element.style.pointerEvents = 'none';
+        
+        const confetti = {
+            element: element,
             x: x,
             y: y,
             vx: (Math.random() - 0.5) * 12,
@@ -58,11 +58,20 @@ class ConfettiAnimation {
             wobbleOffset: Math.random() * Math.PI * 2,
             airResistance: 0.98
         };
+        
+        this.styleOConfetti(confetti);
+        this.confettiContainer.appendChild(element);
+        return confetti;
     }
 
     createXConfetti(x, y) {
+        const element = document.createElement('div');
+        element.style.position = 'absolute';
+        element.style.pointerEvents = 'none';
+        
         const shapes = ['x', 'plus', 'cross'];
-        return {
+        const confetti = {
+            element: element,
             x: x,
             y: y,
             vx: (Math.random() - 0.5) * 12,
@@ -79,83 +88,58 @@ class ConfettiAnimation {
             wobbleOffset: Math.random() * Math.PI * 2,
             airResistance: 0.98
         };
+        
+        this.styleXConfetti(confetti);
+        this.confettiContainer.appendChild(element);
+        return confetti;
     }
 
-    drawOConfetti(confetti) {
-        this.ctx.save();
-        this.ctx.globalAlpha = confetti.life * 0.9;
-        this.ctx.fillStyle = confetti.color;
-        this.ctx.translate(confetti.x, confetti.y);
-        this.ctx.rotate(confetti.rotation * Math.PI / 180);
-
-        // Add subtle shadow for depth
-        this.ctx.shadowColor = 'rgba(0,0,0,0.3)';
-        this.ctx.shadowBlur = 3;
-        this.ctx.shadowOffsetX = 1;
-        this.ctx.shadowOffsetY = 1;
-
+    styleOConfetti(confetti) {
+        const element = confetti.element;
+        element.style.width = confetti.size * 2 + 'px';
+        element.style.height = confetti.size * 2 + 'px';
+        element.style.backgroundColor = confetti.color;
+        element.style.boxShadow = '1px 1px 3px rgba(0,0,0,0.3)';
+        
         if (confetti.type === 'circle') {
-            this.ctx.beginPath();
-            this.ctx.arc(0, 0, confetti.size, 0, Math.PI * 2);
-            this.ctx.fill();
+            element.style.borderRadius = '50%';
         } else { // oval
-            this.ctx.beginPath();
-            this.ctx.ellipse(0, 0, confetti.size, confetti.size * 0.6, 0, 0, Math.PI * 2);
-            this.ctx.fill();
+            element.style.borderRadius = '50%';
+            element.style.transform = 'scaleY(0.6)';
         }
-
-        this.ctx.restore();
+        
+        this.updateConfettiPosition(confetti);
     }
 
-    drawXConfetti(confetti) {
-        this.ctx.save();
-        this.ctx.globalAlpha = confetti.life * 0.9;
-        this.ctx.strokeStyle = confetti.color;
-        this.ctx.lineWidth = 2.5;
-        this.ctx.lineCap = 'round';
-        this.ctx.lineJoin = 'round';
-        this.ctx.translate(confetti.x, confetti.y);
-        this.ctx.rotate(confetti.rotation * Math.PI / 180);
-
-        // Add subtle shadow for depth
-        this.ctx.shadowColor = 'rgba(0,0,0,0.3)';
-        this.ctx.shadowBlur = 2;
-        this.ctx.shadowOffsetX = 1;
-        this.ctx.shadowOffsetY = 1;
-
+    styleXConfetti(confetti) {
+        const element = confetti.element;
         const size = confetti.size;
-
+        element.style.width = size * 2 + 'px';
+        element.style.height = size * 2 + 'px';
+        element.style.fontSize = size + 'px';
+        element.style.fontWeight = 'bold';
+        element.style.color = confetti.color;
+        element.style.textAlign = 'center';
+        element.style.lineHeight = size * 2 + 'px';
+        element.style.textShadow = '1px 1px 2px rgba(0,0,0,0.3)';
+        
         if (confetti.type === 'x') {
-            // Draw X
-            this.ctx.beginPath();
-            this.ctx.moveTo(-size, -size);
-            this.ctx.lineTo(size, size);
-            this.ctx.moveTo(size, -size);
-            this.ctx.lineTo(-size, size);
-            this.ctx.stroke();
+            element.textContent = '✕';
         } else if (confetti.type === 'plus') {
-            // Draw +
-            this.ctx.beginPath();
-            this.ctx.moveTo(-size, 0);
-            this.ctx.lineTo(size, 0);
-            this.ctx.moveTo(0, -size);
-            this.ctx.lineTo(0, size);
-            this.ctx.stroke();
+            element.textContent = '+';
         } else { // cross
-            // Draw tilted cross
-            this.ctx.beginPath();
-            this.ctx.moveTo(-size * 0.7, -size * 0.7);
-            this.ctx.lineTo(size * 0.7, size * 0.7);
-            this.ctx.moveTo(size * 0.7, -size * 0.7);
-            this.ctx.lineTo(-size * 0.7, size * 0.7);
-            this.ctx.moveTo(-size, 0);
-            this.ctx.lineTo(size, 0);
-            this.ctx.moveTo(0, -size);
-            this.ctx.lineTo(0, size);
-            this.ctx.stroke();
+            element.textContent = '✚';
         }
+        
+        this.updateConfettiPosition(confetti);
+    }
 
-        this.ctx.restore();
+    updateConfettiPosition(confetti) {
+        const element = confetti.element;
+        element.style.left = confetti.x + 'px';
+        element.style.top = confetti.y + 'px';
+        element.style.opacity = confetti.life * 0.9;
+        element.style.transform = `rotate(${confetti.rotation}deg) ${confetti.type === 'oval' ? 'scaleY(0.6)' : ''}`;
     }
 
     updateConfetti() {
@@ -176,27 +160,22 @@ class ConfettiAnimation {
             confetti.y += confetti.vy + wobbleY;
             confetti.rotation += confetti.rotationSpeed;
             confetti.life -= confetti.decay;
+            
+            // Update DOM position and style
+            this.updateConfettiPosition(confetti);
 
             // Remove if off screen or faded
             if (confetti.life <= 0 || confetti.y > window.innerHeight + 100 || 
                 confetti.x < -100 || confetti.x > window.innerWidth + 100) {
+                if (confetti.element && confetti.element.parentNode) {
+                    confetti.element.parentNode.removeChild(confetti.element);
+                }
                 this.confettiPieces.splice(i, 1);
             }
         }
     }
 
     animate() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-        // Draw all confetti
-        this.confettiPieces.forEach(confetti => {
-            if (confetti.winner === 'O') {
-                this.drawOConfetti(confetti);
-            } else {
-                this.drawXConfetti(confetti);
-            }
-        });
-
         this.updateConfetti();
 
         // Continue animation if there are still confetti pieces
@@ -209,7 +188,7 @@ class ConfettiAnimation {
 
     launch(winner) {
         this.stop(); // Stop any existing animation
-        this.createCanvas();
+        this.createContainer();
         
         // Get the position of the result text
         const resultTextElement = document.getElementById('result-text');
@@ -264,8 +243,14 @@ class ConfettiAnimation {
             cancelAnimationFrame(this.animationId);
             this.animationId = null;
         }
+        // Clean up all confetti elements
+        this.confettiPieces.forEach(confetti => {
+            if (confetti.element && confetti.element.parentNode) {
+                confetti.element.parentNode.removeChild(confetti.element);
+            }
+        });
         this.confettiPieces = [];
-        this.removeCanvas();
+        this.removeContainer();
     }
 }
 
